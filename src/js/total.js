@@ -88,15 +88,13 @@ class Total {
     }
 
     static composeUpdated () {
-        let date = new Date();
-        date = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
-
+        let date = new BillDate();
         let col = document.createElement('div');
         col.classList.add('col');
         col.classList.add('s12');
 
         let span = document.createElement('span');
-        span.innerText = `Last updated: ${date}`;
+        span.innerText = `Last updated: ${date.format()}`;
         col.appendChild(span);
 
         return col;

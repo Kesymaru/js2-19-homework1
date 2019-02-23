@@ -1,4 +1,62 @@
 /**
+ * Bill Date class
+ */
+class BillDate extends Date {
+    static MONTHS = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ];
+    static MONTHS_SHORT = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+    ];
+    static FORMATS = {
+        yyyy: d => d.getFullYear(),
+        dd: d => d.getDate(),
+        mmmm: d => BillDate.MONTHS[d.getMonth()],
+        mmm: d => BillDate.MONTHS_SHORT[d.getMonth()],
+        mm: d => d.getMonth()+1,
+        m: d => d.getMinutes(),
+        h: d => BillDate.FORMATS.a(d) === 'PM' ? d.getHours() - 12 : d.getHours(),
+        a: d => d.getHours()-12 > 0 ? 'PM' : 'AM'
+    };
+
+    /**
+     * Format a date based on an format string
+     * @param {string} format optional default dd mmm yyyy h:m
+     */
+    format (format = 'dd mmm yyyy h:m a') {
+        if(!format || typeof format !== 'string') throw new Error(`Invalid date format: ${format}`);
+
+        // format the date using the passed format string
+        for(let k in BillDate.FORMATS) {
+            format = format.replace(new RegExp(k), BillDate.FORMATS[k](this))
+        }
+        return format;
+    }
+}
+
+/**
  * Bill class
  */
 class Bill {
@@ -20,8 +78,8 @@ class Bill {
         if(isNaN(parseFloat(amount)))
             throw new Error(`Invalid type: ${amount}`);
 
-        // date is always an date object
-        date = date ? new Date(date) : new Date();
+        // date is always an Bill Date (extended from Date class)
+        date = date ? new BillDate(date) : new BillDate();
 
         this.name = name;
         this.amount = parseFloat(amount);
@@ -31,7 +89,7 @@ class Bill {
     }
 
     get date () {
-        return `${this._date.getDate()}/${this._date.getMonth()+1}/${this._date.getFullYear()} ${this._date.getHours()}:${this._date.getMinutes()}`;
+        return this._date.format();
     }
 }
 
