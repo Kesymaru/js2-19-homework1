@@ -32,7 +32,10 @@ class Form {
         this._initSelects();
 
         // materialize date picker
-        this._initDatePicker();
+        this._datePicker = this._initDatePicker();
+
+        // materialize date picker
+        this._timePicker = this._initTimePicker();
 
         // events
         this.element.addEventListener('submit', (e) => this.submit(e));
@@ -70,9 +73,22 @@ class Form {
         return option
     }
 
+    /**
+     * Init te materialize datepicker plugin
+     * @private
+     */
     _initDatePicker () {
         // init date piciker
-        M.Datepicker.init(this.element.date);
+        return M.Datepicker.init(this.element.date, {
+            format: 'dd mmm yyyy',
+            onClose: () => this._timePicker.open()
+        });
+    }
+
+    _initTimePicker () {
+        return M.Timepicker.init(this.element.time, {
+            onCloseEnd: () => this.element.date.value = this.element.date.value+' '+this.element.time.value
+        });
     }
 
     /**
