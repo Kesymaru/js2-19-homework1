@@ -6,6 +6,12 @@
     };
     const bills = new Bills();
 
+    /**
+     * Compose dummy data for the bills
+     * @param {number} n total number of bills to add
+     * @param {Table} table
+     * @param {Total} total
+     */
     function dummyData(n, table, total) {
         Array.from(Array(n).keys())
             .map(i => new Bill(

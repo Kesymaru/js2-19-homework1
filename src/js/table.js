@@ -20,14 +20,14 @@ class Table {
         this.thead = this.element.querySelector('thead');
         this.tbody = this.element.querySelector('tbody');
 
-        // events
+        // events delegation
         this.thead.addEventListener('click', (e) => this.sort(e))
     }
 
     /**
      * Render the table
      */
-    render (table) {
+    render () {
         this.tbody.innerHTML = '';
         this.bills.data.forEach(bill => this.tbody.appendChild(Table.composeTr(bill)));
     }
@@ -35,7 +35,7 @@ class Table {
     /**
      * Compose the bill tr
      * @param {Bill} bill
-     * @returns {HTMLElement}
+     * @returns {HTMLElement} tr with all the tds
      */
     static composeTr (bill) {
         let tr = document.createElement('tr');

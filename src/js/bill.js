@@ -2,13 +2,13 @@
  * Bill class
  */
 class Bill {
-    static TYPES = ['a', 'b', 'c'];
+    static TYPES = ['a', 'b', 'c', 'd'];
     static KEYS = ['name', 'amount', 'type', 'date'];
     static SORT_KEYS = {
         name: 'string',
         amount: 'number',
         type: 'string',
-        date: 'date'
+        date: 'date',
     };
     static COUNTER = 0;
 
@@ -40,7 +40,7 @@ class Bill {
  */
 class Bills {
     data = [];
-    total = {a: 0, b: 0, c: 0};
+    total = {};
     sortBy = '';
     sortReverse = false;
 
