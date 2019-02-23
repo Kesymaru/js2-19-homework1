@@ -31,6 +31,9 @@ class Form {
         // materialize selects plugin
         this._initSelects();
 
+        // materialize date picker
+        this._initDatePicker();
+
         // events
         this.element.addEventListener('submit', (e) => this.submit(e));
     }
@@ -48,6 +51,7 @@ class Form {
 
         // init the materialize select plugin
         M.FormSelect.init(this.element.type);
+
     }
 
     /**
@@ -64,6 +68,11 @@ class Form {
         option.value = value;
         if(selected) option.setAttribute('selected', '');
         return option
+    }
+
+    _initDatePicker () {
+        // init date piciker
+        M.Datepicker.init(this.element.date);
     }
 
     /**
